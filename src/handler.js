@@ -82,7 +82,7 @@ const addBooksHandler = (request, h) => {
   return response
 }
 
-const getAllBooksHandler = () => {
+const getAllPreviewBooksHandler = () => {
   const bookPreview = books
     .map((book) => ({
       id: book.id,
@@ -100,4 +100,4 @@ const getAllBooksHandler = () => {
   }
 }
 
-module.exports = { addBooksHandler, getAllBooksHandler }
+module.exports = { addBooksHandler, getAllPreviewBooksHandler }
