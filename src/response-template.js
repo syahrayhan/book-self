@@ -1,4 +1,4 @@
-const failedResponse = (responseMessage = '', responseData = {}, withData = false) => {
+const failedResponse = (responseMessage, responseData = {}, withData = false) => {
   if (withData) {
     return {
       status: 'fail',
@@ -13,12 +13,12 @@ const failedResponse = (responseMessage = '', responseData = {}, withData = fals
   }
 }
 
-const errorResponse = (responseMessage = '') => ({
+const errorResponse = (responseMessage) => ({
   status: 'fail',
   message: responseMessage
 })
 
-const successResponse = (responseMessage = '', responseData = {}) => ({
+const successResponse = (responseMessage, responseData = {}) => ({
   status: 'success',
   message: responseMessage,
   data: responseData
