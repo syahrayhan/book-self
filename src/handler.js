@@ -1,5 +1,10 @@
 const { nanoid } = require('nanoid')
 const books = require('./books')
+const {
+  failedResponse,
+  successResponse,
+  errorResponse
+} = require('./response-template')
 
 const addBooksHandler = (request, h) => {
   const {
@@ -38,48 +43,32 @@ const addBooksHandler = (request, h) => {
   const isReadPageLessThenPageCount = readPage <= pageCount
 
   if (!isNamed) {
-    const response = h
-      .response({
-        status: 'fail',
-        message: 'Gagal menambahkan buku. Mohon isi nama buku'
-      })
+    return h
+      .response(failedResponse('Gagal menambahkan buku. Mohon isi nama buku'))
       .code(400)
-    return response
   }
-
   if (!isReadPageLessThenPageCount) {
-    const response = h
-      .response({
-        status: 'fail',
-        message:
+    return h
+      .response(
+        failedResponse(
           'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount'
-      })
+        )
+      )
       .code(400)
-    return response
   }
 
   if (isSuccess) {
     books.push(newBook)
-
-    const response = h
-      .response({
-        status: 'success',
-        message: 'Buku berhasil ditambahkan',
-        data: {
+    return h
+      .response(
+        successResponse('Buku berhasil ditambahkan', {
           bookId: id
-        }
-      })
+        })
+      )
       .code(201)
-    return response
   }
 
-  const response = h
-    .response({
-      status: 'fail',
-      message: 'Buku gagal ditambahkan'
-    })
-    .code(500)
-  return response
+  return h.response(errorResponse('Buku gagal ditambahkan'))
 }
 
 const getAllPreviewBooksHandler = (request, h) => {
