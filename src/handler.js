@@ -159,7 +159,7 @@ const editBookByIdHandler = (request, h) => {
   const isSuccess = bookId.length > 0
   const isNamed = name !== undefined
 
-  const isReadPageLessThenPageCount = readPage < pageCount
+  const isReadPageLessThenPageCount = readPage <= pageCount
 
   const updatedAt = new Date().toISOString()
   console.log(books)
